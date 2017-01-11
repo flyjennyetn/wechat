@@ -1,0 +1,7 @@
+<template name="quizzesOptions">
+    <image  
+        wx:if="{{exam[item.examId] == 1}}" 
+        class="circleIcon" 
+        src="../../../images/question_selectImg.png" />
+    <View  wx:else class="circle" />
+</template>

@@ -1,0 +1,90 @@
+<view class="page">
+    <view class="page__bd" wx:if="{{examList !== null}}">
+
+        <view class="weui-panel" wx:for="{{examList}}" wx:key="examListId">
+            <view class="weui-panel__hd">{{index+1}}、{{item.examId}}{{item.examName}}（{{item.subScore}}分）</view>
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_small-appmsg">
+                    <view class="weui-cells weui-cells_in-small-appmsg">
+                        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <image  
+                                    wx:if="{{exam[item.examId] === '1'}}" 
+                                    class="circleIcon"
+                                    src="../../../images/question_selectImg.png" />
+                                <view wx:else class="circle" />
+                            </view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>正确</view>
+                            </view>
+                        </view>
+                        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <image  
+                                    wx:if="{{exam[item.examId] === '0'}}" 
+                                    class="circleIcon"
+                                    src="../../../images/question_selectImg.png" />
+                                <view wx:else class="circle" />
+                            </view>
+                            <view class="weui-cell__bd weui-cell_primary">
+                                <view>错误</view>
+                            </view>
+                        </view>
+
+                        <view wx:if="{{lessonScore !== 'no'}}" class="weui-cell weui-cell_access weui-media-box__desc">
+                            正确答案是：
+                            <image  class="circleIcon" src="../../../images/question_selectImg.png" />
+                            {{ item.subAns == '1' ? '正确' : '错误'}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-panel" wx:for="{{examSelect}}" wx:key="examSelectId">
+            <view class="weui-panel__hd">{{item.index}}、{{item.examId}}{{item.examName}}（{{item.subScore}}分）</view>
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_small-appmsg">
+                    <view class="weui-cells weui-cells_in-small-appmsg">
+
+                        <view 
+                            wx:for="{{item.options}}" 
+                            wx:for-item="el" 
+                            wx:key="examSelectOptionsId"
+                            class="weui-cell weui-cell_access" 
+                            hover-class="weui-cell_active">
+                            <view class="weui-cell__hd">
+                                <image  
+                                    wx:if="{{exam[item.examId] == el[0]}}" 
+                                    class="circleIcon"
+                                    src="../../../images/question_selectImg.png" />
+                                <view wx:else class="circle" />
+                            </view>
+
+                            <view wx:if="{{item.selectType == 2}}" class="weui-cell__bd weui-cell_primary">
+                                    {{el[0]}}、<image class="answerImg" src="{{el[1]}}" />
+                            </view>
+
+                            <view wx:else class="weui-cell__bd weui-cell_primary">
+                                    {{el[0]}}、{{el[1]}}
+                            </view>
+                        </view>
+                        
+                        <view wx:if="{{lessonScore !== 'no'}}" class="weui-cell weui-cell_access weui-media-box__desc">
+                            正确答案是：
+                            <image  class="circleIcon" src="../../../images/question_selectImg.png" />
+                            {{ item.subAns == '1' ? '正确' : '错误'}}
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="subAnswer">
+                    {{lessonScore == 'no' ? '确认提交' : '答题分数:'+lessonScore+' 分'}}
+            </button>
+        </view>
+
+    </view>
+</view>
